@@ -1090,30 +1090,32 @@ class _DashboardScreenState extends State<DashboardScreen>
                 child: Stack(
                   children: [
                     Container(
-                      padding: EdgeInsets.all(20),
+                      padding: EdgeInsets.all(16),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(24),
                       ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Hero(
-                            tag: 'category_$title',
-                            child: Container(
-                              padding: EdgeInsets.all(16),
-                              decoration: BoxDecoration(
-                                color: color.withOpacity(0.12),
-                                shape: BoxShape.circle,
-                                border: Border.all(color: color.withOpacity(0.2), width: 1.5),
+                          Expanded(
+                            child: Hero(
+                              tag: 'category_$title',
+                              child: Container(
+                                padding: EdgeInsets.all(12),
+                                decoration: BoxDecoration(
+                                  color: color.withOpacity(0.12),
+                                  shape: BoxShape.circle,
+                                  border: Border.all(color: color.withOpacity(0.2), width: 1.5),
+                                ),
+                                child: Icon(icon, color: color, size: 30),
                               ),
-                              child: Icon(icon, color: color, size: 34),
                             ),
                           ),
-                          SizedBox(height: 16),
+                          SizedBox(height: 12),
                           Text(
                             title,
                             style: TextStyle(
-                              fontSize: 16,
+                              fontSize: 15,
                               fontWeight: FontWeight.w800,
                               color: Color(0xFF2D3748),
                               height: 1.2,
@@ -1122,56 +1124,65 @@ class _DashboardScreenState extends State<DashboardScreen>
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                           ),
-                          SizedBox(height: 10),
-                          Container(
-                            width: double.infinity,
-                            height: 6,
-                            decoration: BoxDecoration(
-                              color: color.withOpacity(0.1),
-                              borderRadius: BorderRadius.circular(3),
-                            ),
-                            child: Row(
+                          //SizedBox(height: 8),
+                          Expanded(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                Flexible(
-                                  flex: int.parse(progress.split('/')[0]),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: color,
-                                      borderRadius: BorderRadius.circular(3),
-                                    ),
+                                Container(
+                                  width: double.infinity,
+                                  height: 6,
+                                  decoration: BoxDecoration(
+                                    color: color.withOpacity(0.1),
+                                    borderRadius: BorderRadius.circular(3),
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      Flexible(
+                                        flex: int.parse(progress.split('/')[0]),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            color: color,
+                                            borderRadius: BorderRadius.circular(3),
+                                          ),
+                                        ),
+                                      ),
+                                      Flexible(
+                                        flex: int.parse(progress.split('/')[1]) - int.parse(progress.split('/')[0]),
+                                        child: Container(),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                                Flexible(
-                                  flex: int.parse(progress.split('/')[1]) - int.parse(progress.split('/')[0]),
-                                  child: Container(),
+                                SizedBox(height: 8),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      progress,
+                                      style: TextStyle(
+                                        color: color,
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                    SizedBox(width: 3),
+                                    Text(
+                                      'quizzes',
+                                      style: TextStyle(
+                                        color: Colors.grey[600],
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
                           ),
-                          SizedBox(height: 8),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                progress,
-                                style: TextStyle(
-                                  color: color,
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 13,
-                                ),
-                              ),
-                              SizedBox(width: 3),
-                              Text(
-                                'quizzes',
-                                style: TextStyle(
-                                  color: Colors.grey[600],
-                                  fontSize: 13,
-                                ),
-                              ),
-                            ],
-                          ),
                         ],
                       ),
+
+
                     ),
                     if (locked)
                       Positioned.fill(
@@ -1184,14 +1195,14 @@ class _DashboardScreenState extends State<DashboardScreen>
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(Icons.lock, color: Colors.white, size: 36),
-                                SizedBox(height: 10),
+                                Icon(Icons.lock, color: Colors.white, size: 32),
+                                SizedBox(height: 8),
                                 Text(
                                   'Complete previous\nto unlock',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 12,
+                                    fontSize: 11,
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
@@ -1209,6 +1220,164 @@ class _DashboardScreenState extends State<DashboardScreen>
       },
     );
   }
+
+  //
+  // Widget _buildCategoryTile(String title, IconData icon, Color color, String progress, bool locked, int index) {
+  //   return AnimatedBuilder(
+  //     animation: AlwaysStoppedAnimation((index * 0.2)),
+  //     builder: (context, child) {
+  //       return TweenAnimationBuilder(
+  //         tween: Tween<double>(begin: 0.8, end: 1.0),
+  //         duration: Duration(milliseconds: 600 + (index * 100)),
+  //         curve: Curves.easeOutCubic,
+  //         builder: (context, double scale, child) {
+  //           return Transform.scale(
+  //             scale: scale,
+  //             child: child!,
+  //           );
+  //         },
+  //         child: Container(
+  //           decoration: BoxDecoration(
+  //             borderRadius: BorderRadius.circular(24),
+  //             boxShadow: [
+  //               BoxShadow(
+  //                 color: color.withOpacity(0.2),
+  //                 blurRadius: 10,
+  //                 offset: Offset(0, 5),
+  //               ),
+  //             ],
+  //           ),
+  //           child: Material(
+  //             color: Colors.white,
+  //             borderRadius: BorderRadius.circular(24),
+  //             clipBehavior: Clip.antiAlias,
+  //             elevation: 0,
+  //             child: InkWell(
+  //               onTap: locked ? null : () {},
+  //               splashColor: color.withOpacity(0.1),
+  //               highlightColor: color.withOpacity(0.05),
+  //               child: Stack(
+  //                 children: [
+  //                   Container(
+  //                     padding: EdgeInsets.all(20),
+  //                     decoration: BoxDecoration(
+  //                       borderRadius: BorderRadius.circular(24),
+  //                     ),
+  //                     child: Column(
+  //                       mainAxisAlignment: MainAxisAlignment.center,
+  //                       children: [
+  //                         Hero(
+  //                           tag: 'category_$title',
+  //                           child: Container(
+  //                             padding: EdgeInsets.all(16),
+  //                             decoration: BoxDecoration(
+  //                               color: color.withOpacity(0.12),
+  //                               shape: BoxShape.circle,
+  //                               border: Border.all(color: color.withOpacity(0.2), width: 1.5),
+  //                             ),
+  //                             child: Icon(icon, color: color, size: 34),
+  //                           ),
+  //                         ),
+  //                         SizedBox(height: 16),
+  //                         Text(
+  //                           title,
+  //                           style: TextStyle(
+  //                             fontSize: 16,
+  //                             fontWeight: FontWeight.w800,
+  //                             color: Color(0xFF2D3748),
+  //                             height: 1.2,
+  //                           ),
+  //                           textAlign: TextAlign.center,
+  //                           maxLines: 2,
+  //                           overflow: TextOverflow.ellipsis,
+  //                         ),
+  //                         SizedBox(height: 10),
+  //                         Container(
+  //                           width: double.infinity,
+  //                           height: 6,
+  //                           decoration: BoxDecoration(
+  //                             color: color.withOpacity(0.1),
+  //                             borderRadius: BorderRadius.circular(3),
+  //                           ),
+  //                           child: Row(
+  //                             children: [
+  //                               Flexible(
+  //                                 flex: int.parse(progress.split('/')[0]),
+  //                                 child: Container(
+  //                                   decoration: BoxDecoration(
+  //                                     color: color,
+  //                                     borderRadius: BorderRadius.circular(3),
+  //                                   ),
+  //                                 ),
+  //                               ),
+  //                               Flexible(
+  //                                 flex: int.parse(progress.split('/')[1]) - int.parse(progress.split('/')[0]),
+  //                                 child: Container(),
+  //                               ),
+  //                             ],
+  //                           ),
+  //                         ),
+  //                         SizedBox(height: 8),
+  //                         Row(
+  //                           mainAxisAlignment: MainAxisAlignment.center,
+  //                           children: [
+  //                             Text(
+  //                               progress,
+  //                               style: TextStyle(
+  //                                 color: color,
+  //                                 fontWeight: FontWeight.w700,
+  //                                 fontSize: 13,
+  //                               ),
+  //                             ),
+  //                             SizedBox(width: 3),
+  //                             Text(
+  //                               'quizzes',
+  //                               style: TextStyle(
+  //                                 color: Colors.grey[600],
+  //                                 fontSize: 13,
+  //                               ),
+  //                             ),
+  //                           ],
+  //                         ),
+  //                       ],
+  //                     ),
+  //                   ),
+  //                   if (locked)
+  //                     Positioned.fill(
+  //                       child: Container(
+  //                         decoration: BoxDecoration(
+  //                           color: Colors.black.withOpacity(0.1),
+  //                           borderRadius: BorderRadius.circular(24),
+  //                         ),
+  //                         child: Center(
+  //                           child: Column(
+  //                             mainAxisAlignment: MainAxisAlignment.center,
+  //                             children: [
+  //                               Icon(Icons.lock, color: Colors.white, size: 36),
+  //                               SizedBox(height: 10),
+  //                               Text(
+  //                                 'Complete previous\nto unlock',
+  //                                 textAlign: TextAlign.center,
+  //                                 style: TextStyle(
+  //                                   color: Colors.white,
+  //                                   fontSize: 12,
+  //                                   fontWeight: FontWeight.w600,
+  //                                 ),
+  //                               ),
+  //                             ],
+  //                           ),
+  //                         ),
+  //                       ),
+  //                     ),
+  //                 ],
+  //               ),
+  //             ),
+  //           ),
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
 
   // Widget _buildCategoriesTab() {
   //   return CustomScrollView(
