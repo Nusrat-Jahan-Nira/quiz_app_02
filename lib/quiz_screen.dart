@@ -162,11 +162,13 @@ class _QuizScreenState extends State<QuizScreen>
     setState(() {
       selectedAnswer = index;
       isAnswered = true;
+
+      if (index == questions[currentQuestionIndex]['correctAnswer']) {
+        score = score + 10;
+      }
+
     });
 
-    if (index == questions[currentQuestionIndex]['correctAnswer']) {
-      score++;
-    }
 
     Future.delayed(Duration(milliseconds: 1500), () {
       _nextQuestion();
@@ -596,7 +598,9 @@ class _QuizScreenState extends State<QuizScreen>
   }
 
   Widget _buildResultScreen() {
-    final percentage = (score / questions.length * 100).round();
+
+    //final percentage = (score / questions.length * 100).round();
+    final percentage = (score / (questions.length * 10) * 100).round();
     String resultMessage;
     IconData resultIcon;
     Color resultColor;
@@ -652,7 +656,7 @@ class _QuizScreenState extends State<QuizScreen>
                   ),
                   SizedBox(height: 16),
                   Text(
-                    'You scored $score out of ${questions.length}',
+                    'You scored $score out of ${questions.length * 10}',
                     style: TextStyle(
                       fontSize: 18,
                       color: Color(0xFF718096),
